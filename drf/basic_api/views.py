@@ -21,6 +21,9 @@ logging.basicConfig(
     format='%(asctime)s:%(name)s:%(message)s'
 )
 
+###################################################
+#  APIs without use of DRF                        #
+###################################################
 def project_intro(request):
     # here the request is the instance of Django's HttpRequest class. 
     logging.info(f"headers:\n {request.headers}")
@@ -64,6 +67,10 @@ def list_products_view(request):
         qs_model_dict = model_to_dict(qs_model)
     return JsonResponse(qs_model_dict)
 
+
+###################################################
+#          APIs with use of DRF                   #
+###################################################
 @api_view(http_method_names=["GET"])
 def get_first_product(request):
     """
@@ -75,7 +82,9 @@ def get_first_product(request):
         data = qs_serializer.data
     return Response(data)
 
-
+###################################################
+#          one step further with DRF              #
+###################################################
 class ListProducts(APIView):
     """
     List all products, or create a new product.
